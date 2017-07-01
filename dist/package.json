@@ -1,0 +1,23 @@
+{
+  "name": "video-processing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "rtmpdump": "^0.1.1"
+  },
+  "devDependencies": {
+    "watch-babel": "^0.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "node babel-watcher.js",
+    "go": "node babel-watcher.js && node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
