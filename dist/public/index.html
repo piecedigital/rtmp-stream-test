@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Video</title>
+  </head>
+  <body>
+    <video id="video" srv="/output.flv" controls autoplay></video>
+    <script type="text/javascript" src="/hls.js"></script>
+    <script type="text/javascript" src="/ajax.js"></script>
+    <script type="text/javascript">
+      console.log("We in dih bih");
+    </script>
+    <script>
+      if(Hls.isSupported()) {
+        var video = document.getElementById('video');
+        var hls = new Hls();
+        hls.loadSource("/output.flv");
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED,function() {
+          console.log("thing");
+          video.play();
+        });
+        hls.on(Hls.Events.ERROR,function(_, e) {
+          console.log("err", _, e.stack || e);
+        });
+       }
+    </script>
+    <script type="text/javascript">
+      // ajax({
+      //   url: "/get-stream",
+      //   success(d) {
+      //     console.log(d);
+      //   },
+      //   error(data) {
+      //     console.error(data);
+      //   }
+      // })
+    </script>
+  </body>
+</html>
+
+<!--
+ffmpeg -v verbose -i rtmp://192.168.118.128/live/test -c:v libx264 -c:a aac -ac 1 -strict -2 -crf 18 -profile:v baseline -maxrate 400k -bufsize 1835k -pix_fmt yuv420p -flags -global_header -hls_time 10 -hls_list_size 6 -hls_wrap 10 -start_number 1 http://localhost:9090/stream.m3u8
+-->

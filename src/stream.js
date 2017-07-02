@@ -5,8 +5,9 @@ import rtmpdump from "rtmpdump";
 import path from "path";
 
 export default function (res) {
-  // var outStream = fs.createWriteStream(path.join(__dirname, 'output.mp4'));
-  var outStream = res;
+  var filepath = path.join(__dirname, "public", "output.flv");
+  var outStream = fs.createWriteStream(filepath);
+  // var outStream = res;
 
   // console.log("made options");
   var options = {
@@ -33,6 +34,7 @@ export default function (res) {
   });
   stream.on('readable', function() {
     console.log("we can read this now");
+    res.pipe(fs.createReadStream(filepath))
     // console.log("readable:", stream.read());
   });
   // console.log("error event");

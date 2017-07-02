@@ -22,8 +22,9 @@ var _path = require("path");
 var _path2 = _interopRequireDefault(_path);
 
 exports["default"] = function (res) {
-  // var outStream = fs.createWriteStream(path.join(__dirname, 'output.mp4'));
-  var outStream = res;
+  var filepath = _path2["default"].join(__dirname, "public", "output.flv");
+  var outStream = _fs2["default"].createWriteStream(filepath);
+  // var outStream = res;
 
   // console.log("made options");
   var options = {
@@ -50,6 +51,7 @@ exports["default"] = function (res) {
   });
   stream.on('readable', function () {
     console.log("we can read this now");
+    res.pipe(_fs2["default"].createReadStream(filepath));
     // console.log("readable:", stream.read());
   });
   // console.log("error event");
