@@ -3,9 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Video</title>
+    <style media="screen">
+      video {
+        width: 720px;
+      }
+    </style>
   </head>
   <body>
-    <video id="video" srv="/output.flv" controls autoplay></video>
+    <video id="video" controls autoplay></video>
     <script type="text/javascript" src="/hls.js"></script>
     <script type="text/javascript" src="/ajax.js"></script>
     <script type="text/javascript">
@@ -15,7 +20,7 @@
       if(Hls.isSupported()) {
         var video = document.getElementById('video');
         var hls = new Hls();
-        hls.loadSource("/output.flv");
+        hls.loadSource("/streams/stream.m3u8");
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED,function() {
           console.log("thing");
@@ -41,5 +46,5 @@
 </html>
 
 <!--
-ffmpeg -v verbose -i rtmp://192.168.118.128/live/test -c:v libx264 -c:a aac -ac 1 -strict -2 -crf 18 -profile:v baseline -maxrate 400k -bufsize 1835k -pix_fmt yuv420p -flags -global_header -hls_time 10 -hls_list_size 6 -hls_wrap 10 -start_number 1 http://localhost:9090/stream.m3u8
+ffmpeg -v verbose -i rtmp://192.168.118.128/live/test -c:v libx264 -c:a aac -ac 1 -strict -2 -crf 18 -profile:v baseline -maxrate 400k -bufsize 1835k -pix_fmt yuv420p -flags -global_header -hls_time 10 -hls_list_size 6 -hls_wrap 10 -start_number 1 stream.m3u8
 -->
